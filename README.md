@@ -89,11 +89,11 @@ Our model demonstrates significant performance improvements across multiple metr
 
 - **Figure 4:** Scatter plot of MSE score versus MACs for different models. The size of the circles is proportional to the number of parameters of each model.
 
-  ![Figure 4](fig4.png)
+  ![Figure 4](Fig4.png)
 
 - **Figure 7:** This graph illustrates the increasing inference throughput as the batch size is expanded, highlighting the scalability and efficiency gains achieved during batch processing.
 
-  ![Figure 7](fig7.png)
+  ![Figure 7](Fig7.png)
 
 ### Summary
 
