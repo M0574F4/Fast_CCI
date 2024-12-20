@@ -1,4 +1,8 @@
-# High-Throughput Blind Co-Channel Interference Cancellation
+<div align="center">
+
+## 📄 ***[Read Our Paper](https://arxiv.org/pdf/2411.12541)*** 📄  
+## ***[High-Throughput Blind Co-Channel Interference Cancellation for Edge Devices Using Depthwise Separable Convolutions, Quantization, and Pruning](https://arxiv.org/pdf/2411.12541)*** 
+</div>
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)
@@ -13,8 +17,6 @@
   - [Training](#training)
 - [Dataset](#dataset)
 - [Results](#results)
-- [Contributing](#contributing)
-- [License](#license)
 - [Citations](#citations)
 
 ## Introduction
@@ -94,10 +96,17 @@ Our model demonstrates significant performance improvements across multiple metr
 - **Figure 7:** This graph illustrates the increasing inference throughput as the batch size is expanded, highlighting the scalability and efficiency gains achieved during batch processing.
 
   ![Figure 7](Fig7.png)
-
-### Summary
-
-- **Efficiency Gains:** Depthwise separable convolutions significantly reduce computational costs while maintaining high accuracy.
-- **Scalability:** The model demonstrates linear throughput scaling with batch size, making it highly suitable for real-time and batch inference scenarios.
-
+  
 _For a comprehensive analysis and additional results, please refer to the [paper](https://arxiv.org/pdf/2411.12541)._ 
+
+## Citations
+
+If you use this work in your research, please cite the following paper:
+
+```bibtex
+@article{naseri2024high,
+  title={High-Throughput Blind Co-Channel Interference Cancellation for Edge Devices Using Depthwise Separable Convolutions, Quantization, and Pruning},
+  author={Naseri, Mostafa and De Poorter, Eli and Moerman, Ingrid and Poor, H Vincent and Shahid, Adnan},
+  journal={arXiv preprint arXiv:2411.12541},
+  year={2024}
+}
