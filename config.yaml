@@ -1,0 +1,168 @@
+# Dataset and DataLoader related configurations
+dataloader:
+  SOI_type: "QPSK"
+  use_all_interferences: false
+  All_interference_type: ["EMISignal1", "CommSignal2", "CommSignal3", "CommSignal5G1"] # EMISignal1 CommSignal3 CommSignal2 CommSignal5G1 
+  interference_type: ["EMISignal1", "CommSignal2", "CommSignal3", "CommSignal5G1"] # EMISignal1 CommSignal3 CommSignal2 CommSignal5G1 
+  unseen_interference_type_idx: None
+  interference_idx: ['no'] #[-1]
+  seed0: 42
+  batch_size: 8
+  val_batch_size: 8
+  N_per_superframe: 1
+  N_worker : 0
+  sinr_start: -30
+  sinr_end: 0
+  N_total_folds: 5
+  fold_indices_dir: "/dir/configs/fold_assignments_json/"
+  train_dataset_dir: "/dir/dataset/interferenceset_frame"
+  test_dataset_dir: "/dir/dataset/testset1_frame"
+  sig_len: 40960 # 5120 # 40960
+  Is_weighted_sampler: False
+
+distillation:
+  Is_distillation: False
+  teacher_timestamp: "20240121_161548"
+  teacher_project: "Solid"
+  
+# Model specific configurations
+model:
+  input_channels: 2
+  output_channels: 2
+  conv_dim: 1
+  quantize: False
+  transform_type: 'identity' #'stft' 'fft' 'hankel' 'polar'
+  bottleneck_structure: 'no' # 'residual' 'mask'
+  n_fft: 128 # 128
+  N_sym: 64 # 128
+  hop_length: 32 # 96
+  L_cp: 16
+  M_exits: 4
+  Exits_timestamps: False
+  Exits_timestamps_preload_cfg: None
+  Exits_timestamps_freeze: None
+  Complexity_cost: false
+  CM_type: "sinr"
+  sinr_thresholds_db: [-20, -12, -5] 
+  concat_input_for_all: False
+  remove_cp: True
+  output_logits: False
+  pre_trained_checkpoint: None
+  pre_trained_full_checkpoint_path: None
+  residual_channels: 128
+  residual_layers: 30
+  dilation_cycle_length: 10
+  model_type: "VersaNetDemodMod" #VersaNetDemodulator VersaNetDemodMod WaveUNet_separator
+  use_input_low_pass_filter: False
+  channel_operation: "no"
+  domain_change: "no"
+  output_where: "decoder_output"
+  bottleneck_type: "lstm" # lstm SEBottleneck wave
+  hidden_lstm_size: 512
+  num_lstm_layers: 2
+  skip_mixer_method: "average" #average concat_conv
+
+  encoder_filters: [64, 128, 256]
+  nhead: 8
+  # encoder_filters: 
+  ker_size: 3
+  ker0_size: 3
+  encoder_strides: [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+  skip_type: "add" # add concat
+  enc_block_type: "double_conv" # double_conv dilated_convs
+  dec_block_type: "double_conv" # double_conv dilated_convs
+  channel_wise: false
+  decoder_channel_wise: false
+  dilation_depth: 10
+  normalization_type: "group"
+  Is_weight_init: false
+  weight_init_type: "xavier"
+  spatial_dropout_rate: 0 
+  supervision_depth: 4
+  num_iterations: 5
+  N_multiUnets: 64
+  model2Isolate: "ImprovedUNet_Res_Connections"
+  model_types: ["ImprovedUNet_Ultimate"]
+  pretrained_timestamps: ["20240121_161548"]
+  num_models_list: [4, 4]
+  ratio_per_dilation: [0.8125, 0.125, 0.0625]
+  dilation_vec: [1, 2, 4]
+
+  ch2batch: False
+
+  ConvTasNet_N: 512
+  ConvTasNet_L: 16
+  ConvTasNet_B: 128
+  ConvTasNet_H: 512
+  ConvTasNet_P: 3
+  ConvTasNet_X: 8
+  ConvTasNet_R: 3
+
+quantization:
+  ConvTranspose1d_qscheme: "torch.per_channel_affine" # per_tensor_affine per_channel_affine per_tensor_symmetric per_channel_symmetric
+  Conv1d_qscheme: "torch.per_channel_affine"
+  ConvTranspose1d_observer: "MinMaxObserver" # MinMaxObserver MovingAverageMinMaxObserver PerChannelMinMaxObserver MovingAveragePerChannelMinMaxObserver
+  Conv1d_observer: "MinMaxObserver"
+  weight_dtype: "qint8"
+  activation_dtype: "quint8"
+  
+
+
+tester:
+  N_per_sinr_test: 25
+  each_N_epochs: 50
+  N_self_cascade: 10
+  
+# Trainer related configurations
+trainer:
+  reference_config: false
+  Is_save_full_model: false
+  fold: 0
+  # max_examples: 1000000
+  max_epochs: 0
+  max_steps: 1000000
+  val_check_interval: 20
+  val_skip_rate: 0
+  exit_weights: [8,4,2,1]
+  backward_option: "mse_score" # ["loss", "score", "mse_in_db", "mse_score", "ber_score", "ber", "mse_std", "mse_ber_score"]
+  loss_type: "mse_in_db"
+  training_ber_score_type: "soft"
+  N_save_model: 10
+  model_save_dir: "/dir/models"
+  seed_everything: True
+  Anneal_T_mult: 1
+  N_valid: 1024
+  N_log: 1
+  outputs_loss_weights: [1]
+  IsDeepSupervision: false
+  Ispreprocessing: false
+  filter_type: "butterworth"
+  cutoff_frequency: 0.15
+  Which_Target: "soi"
+  Is_increment: false
+  Increment_snr_epsilon: 1
+  combined_loss_ratio: None
+  l1_weight: 0
+  l2_weight: 0
+  Is_separate_param: False
+  
+# Optimizer related configurations
+optimizer:
+  optimizer_type: "adam" 
+  lr0: 2e-4  
+  lr0_2: 2e-5
+  
+# Scheduler related configurations
+scheduler:
+  scheduler_type: "cosine_annealing" 
+
+# Distributed training related configurations
+distributed:
+  Is_DataParallel: false
+  Is_scattered: true
+  n_devices: 1
+  strategy: "ddp" # ddp_find_unused_parameters_true
+
+wandb:
+  proj_name: "Blind_Separator"
+  
