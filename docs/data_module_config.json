@@ -1,0 +1,13 @@
+{
+    "fold_indices_dir": {
+        "EMISignal1": "/dir/5folds_EMISignal1_fold_assignment.json",
+        "CommSignal2": "/dir/5folds_CommSignal2_fold_assignment.json",
+        "CommSignal3": "/dir/5folds_CommSignal3_fold_assignment.json",
+        "CommSignal5G1": "/dir/5folds_CommSignal5G1_fold_assignment.json"
+    },
+    "train_dataset_dir": "/dir/dataset/interferenceset_frame",
+    "test_dataset_dir": "/dir/dataset/testset1_frame",
+    "sig_len": 40960,
+    "batch_size": 1,
+    "seed0": 42
+}
